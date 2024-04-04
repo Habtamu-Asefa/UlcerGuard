@@ -1,6 +1,6 @@
 import * as React from 'react';
-import UlcerGuard from './src/UlcerGuard';
 import {NavigationContainer} from '@react-navigation/native';
+import UlcerGuard from './src/UlcerGuard';
 
 function App() {
   const isAuthenticated = true;

@@ -1,13 +1,8 @@
 import * as React from 'react';
+import NavigationRoot from './libs/Navigation/NavigationRoot';
 
-function UlcerGuard({authenticated}) {
-  if (authenticated) {
-    const AuthScreens = require('./libs/Navigation/AuthScreens').default;
-
-    return <AuthScreens />;
-  }
-  const PublicScreens = require('./libs/Navigation/PublicScreens').default;
-  return <PublicScreens />;
+function UlcerGuard({authenticated}: {authenticated: boolean}) {
+  return <NavigationRoot authenticated={authenticated} />;
 }
 
 export default UlcerGuard;
