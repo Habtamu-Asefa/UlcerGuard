@@ -9,7 +9,11 @@ const Stack = createNativeStackNavigator();
 export default function PublicScreens() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name={CONST.SCREEN.SIGNIN} component={SignIn} />
+      <Stack.Screen
+        name={CONST.SCREEN.SIGNIN}
+        component={SignIn}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name={CONST.SCREEN.SIGNUP} component={SignUp} />
     </Stack.Navigator>
   );

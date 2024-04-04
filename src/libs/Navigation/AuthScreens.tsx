@@ -7,7 +7,11 @@ const RootStack = createNativeStackNavigator();
 export default function AuthScreens() {
   return (
     <RootStack.Navigator>
-      <RootStack.Screen name="Home" component={Home} />
+      <RootStack.Screen
+        name="Home"
+        component={Home}
+        options={{headerShown: false}}
+      />
     </RootStack.Navigator>
   );
 }
