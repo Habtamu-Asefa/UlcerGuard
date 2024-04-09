@@ -6,7 +6,7 @@ import {persistor, store} from './libs/Redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 
 function App() {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
 
   return (
     <Provider store={store}>
