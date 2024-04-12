@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {Dimensions, Text, View} from 'react-native';
 import {CartesianChart, Line, useChartPressState} from 'victory-native';
@@ -28,6 +29,7 @@ function MyChart() {
           Health Data Analysis
         </Text>
       </View>
+
       <View style={{height: 300, backgroundColor: 'white', margin: 5}}>
         <CartesianChart
           data={DATA}

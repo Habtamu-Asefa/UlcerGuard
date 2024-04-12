@@ -1,11 +1,17 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 
-export default function Header({name = 'Bilbil'}) {
+export default function Header({name = 'Bilbil', navigation}) {
   return (
     <View style={styles.container}>
-      <Avatar.Image size={40} source={require('../../../assets/patient.png')} />
+      <Pressable onPress={() => navigation.openDrawer()}>
+        <Avatar.Image
+          size={40}
+          source={require('../../../assets/patient.png')}
+        />
+      </Pressable>
+
       <Text style={styles.name}>Afternoon, {name}</Text>
     </View>
   );
