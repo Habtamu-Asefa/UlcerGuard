@@ -37,7 +37,7 @@ export default function SignIn({navigation}) {
       <View>
         <Button
           mode="contained"
-          onPress={() => navigation.navigate(CONST.SCREEN.DATA)}
+          onPress={() => navigation.navigate(CONST.SCREEN.HOME)}
           style={styles.button}>
           Sign In
         </Button>

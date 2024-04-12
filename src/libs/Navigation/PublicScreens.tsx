@@ -11,6 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function PublicScreens() {
   return (
     <Stack.Navigator initialRouteName={CONST.SCREEN.ONBOARDING}>
+    <Stack.Navigator initialRouteName={CONST.SCREEN.ONBOARDING}>
       <Stack.Screen
         name={CONST.SCREEN.SIGNIN}
         component={SignIn}
@@ -21,9 +22,15 @@ export default function PublicScreens() {
         component={SignUp}
         options={{headerShown: false}}
       />
+
       <Stack.Screen
-        name={CONST.SCREEN.DATA}
-        component={Data}
+        name={CONST.SCREEN.ONBOARDING}
+        component={OnBoarding}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={CONST.SCREEN.ONBOARDING}
+        component={OnBoarding}
         options={{headerShown: false}}
       />
       <Stack.Screen
