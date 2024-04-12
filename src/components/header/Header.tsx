@@ -5,7 +5,10 @@ import {Avatar} from 'react-native-paper';
 export default function Header({name = 'Bilbil'}) {
   return (
     <View style={styles.container}>
-      <Avatar.Image size={40} source={require('../../../assets/patient.png')} />
+      <Avatar.Image
+        size={40}
+        source={require('../../../assets/image/patient.png')}
+      />
       <Text style={styles.name}>Afternoon, {name}</Text>
     </View>
   );

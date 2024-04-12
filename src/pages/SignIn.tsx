@@ -54,7 +54,7 @@ export default function SignIn({navigation}) {
             justifyContent: 'center',
             paddingTop: 8,
           }}>
-          <Text>Don't have an account?</Text>
+          <Text style={{color:'#00B140'}}>Don't have an account?</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}>
             <Text
