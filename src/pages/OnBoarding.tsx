@@ -40,9 +40,16 @@ const OnBoarding = ({navigation}) => {
             </Text>
           </Button>
         </View>
-        <Text style={{textAlign: 'center', width: 230, paddingTop: 20}}>
-          By using Ulcer Guard you agree to our Terms of Service and Privacy
-          Policy{' '}
+        <Text
+          style={{
+            textAlign: 'center',
+            width: 230,
+            paddingTop: 20,
+            color: 'white',
+          }}>
+          By using Ulcer Guard you agree to our{' '}
+          <Text style={{color: 'blue'}}>Terms of Service </Text>
+          and <Text style={{color: 'blue'}}>Privacy Policys</Text>
         </Text>
       </ImageBackground>
     </View>
@@ -72,11 +79,13 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     fontSize: 50,
     fontWeight: 'bold',
+    color: 'white',
   },
   subtitle: {
     width: 260,
     fontSize: 25,
     textAlign: 'center',
+    color: 'white',
   },
   filter: {
     position: 'absolute',

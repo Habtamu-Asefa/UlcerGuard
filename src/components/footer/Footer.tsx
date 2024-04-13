@@ -5,7 +5,7 @@ import StatFooter from './StatFooter';
 
 export default function Footer() {
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, gap: 10}}>
       <ReferenceFooter />
       <StatFooter />
     </View>

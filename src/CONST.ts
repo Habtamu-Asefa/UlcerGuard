@@ -11,5 +11,7 @@ export const CONST = {
     HOME: 'Home',
     HISTORY: 'History',
     DATA: 'Data',
+    NOTIFICATION: 'Notification',
+    CHANGE_PASSWORD: 'Change Password',
   },
 };

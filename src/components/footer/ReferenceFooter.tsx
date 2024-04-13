@@ -13,8 +13,6 @@ const Box = ({color}: {color: string}) => (
   </View>
 );
 
-Boxes.map(c => console.log('c', c));
-
 export default function ReferenceFooter() {
   return (
     <View style={styles.container}>
@@ -32,7 +30,13 @@ export default function ReferenceFooter() {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1 / 4},
+  container: {
+    flex: 1 / 4,
+    backgroundColor: 'white',
+    elevation: 5,
+    borderRadius: 5,
+    padding: 10,
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 13,

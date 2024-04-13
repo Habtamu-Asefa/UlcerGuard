@@ -30,8 +30,10 @@ export default function Feet() {
 const styles = StyleSheet.create({
   container: {
     flex: 1 / 3,
-    paddingTop: 15,
-    // backgroundColor: 'green',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    elevation: 5,
   },
   title: {
     fontWeight: 'bold',
@@ -42,9 +44,11 @@ const styles = StyleSheet.create({
   box: {
     flex: 1,
     width: 80,
+    height: 60,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#999',
+    backgroundColor: '#5EB1BF',
+    elevation: 5,
   },
 });
