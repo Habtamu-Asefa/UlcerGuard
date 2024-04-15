@@ -6,13 +6,10 @@ export default function Header({name = 'Bilbil', navigation}) {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.openDrawer()}>
-        <Avatar.Image
-         
+        <Avatar.Image   
         size={40}
-         
-        source={require('../../../assets/image/patient.png')}
-       
-      />
+        source={require('../../../assets/image/patient.png')} 
+        />
       </Pressable>
 
       <Text style={styles.name}>Afternoon, {name}</Text>
