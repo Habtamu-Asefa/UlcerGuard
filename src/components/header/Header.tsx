@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
 
-export default function Header({name = 'Bilbil', navigation}) {
+export default function Header({name = 'Miedan', navigation}) {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.openDrawer()}>
@@ -27,5 +27,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 10,
+    elevation: 5,
+    borderRadius: 10,
   },
 });

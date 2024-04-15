@@ -1,4 +1,10 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
+import {
+  DrawerItem,
+  DrawerItemList,
+  createDrawerNavigator,
+} from '@react-navigation/drawer';
 import React from 'react';
 import Tab from './TabNavigator';
 import Profile from '../../pages/Profile';
@@ -7,14 +13,58 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import HowTo from '../../pages/HowTo';
-
+import {TouchableOpacity, View} from 'react-native';
+import {Avatar, Text} from 'react-native-paper';
+import {CONST} from '../../CONST';
+import Notification from '../../pages/Notification';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      drawerContent={props => (
+        <>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate(CONST.SCREEN.PROFILE)}
+            style={{
+              height: 100,
+              backgroundColor: '#00B140',
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              gap: 10,
+              padding: 10,
+            }}>
+            <Avatar.Image
+              size={60}
+              source={require('../../../assets/image/patient.png')}
+            />
+            <View>
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginTop: 10,
+                }}>
+                Miedan B.
+              </Text>
+              <Text style={{color: 'white', fontSize: 16}}>
+                +251 9123456789
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <DrawerItemList {...props} />
+        </>
+      )}
+      screenOptions={{
+        drawerStatusBarAnimation: 'slide',
+        drawerActiveTintColor: 'white',
+        drawerActiveBackgroundColor: '#00B140',
+        drawerAllowFontScaling: true,
+      }}>
       <Drawer.Screen
-        name="Home"
+        name={CONST.SCREEN.HOME}
         component={Tab}
         options={{
           headerShown: false,
@@ -24,7 +74,17 @@ export default function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="Edit Profile"
+        name={CONST.SCREEN.NOTIFICATION}
+        component={Notification}
+        options={{
+          headerShown: false,
+          drawerIcon: props => (
+            <Feather name="bell" size={24} color={props.color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={CONST.SCREEN.PROFILE}
         component={Profile}
         options={{
           headerShown: false,

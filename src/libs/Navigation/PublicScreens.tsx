@@ -26,16 +26,6 @@ export default function PublicScreens() {
         component={OnBoarding}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name={CONST.SCREEN.ONBOARDING}
-        component={OnBoarding}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name={CONST.SCREEN.ONBOARDING}
-        component={OnBoarding}
-        options={{headerShown: false}}
-      />
     </Stack.Navigator>
   );
 }

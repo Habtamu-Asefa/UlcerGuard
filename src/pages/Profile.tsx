@@ -9,6 +9,7 @@ import React from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import {CONST} from '../CONST';
 import Header from '../components/header/Header';
+// import {useState} from 'react';
 
 export default function Profile({navigation}) {
   return (
