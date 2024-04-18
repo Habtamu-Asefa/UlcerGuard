@@ -17,6 +17,7 @@ import {TouchableOpacity, View} from 'react-native';
 import {Avatar, Text} from 'react-native-paper';
 import {CONST} from '../../CONST';
 import Notification from '../../pages/Notification';
+import Data from '../../pages/Data';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
@@ -74,7 +75,7 @@ export default function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name={CONST.SCREEN.NOTIFICATION}
+        name={CONST.SCREEN.NATIFICATION}
         component={Notification}
         options={{
           headerShown: false,
@@ -86,6 +87,16 @@ export default function DrawerNavigator() {
       <Drawer.Screen
         name={CONST.SCREEN.PROFILE}
         component={Profile}
+        options={{
+          headerShown: false,
+          drawerIcon: props => (
+            <Feather name="edit" size={24} color={props.color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={CONST.SCREEN.DATA}
+        component={Data}
         options={{
           headerShown: false,
           drawerIcon: props => (
