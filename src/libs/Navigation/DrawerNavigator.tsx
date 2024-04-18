@@ -17,6 +17,7 @@ import {TouchableOpacity, View} from 'react-native';
 import {Avatar, Text} from 'react-native-paper';
 import {CONST} from '../../CONST';
 import Notification from '../../pages/Notification';
+import Password from '../../pages/Password';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
@@ -95,7 +96,7 @@ export default function DrawerNavigator() {
       />
       <Drawer.Screen
         name="Change Password"
-        component={Tab}
+        component={Password}
         options={{
           headerShown: false,
           drawerIcon: props => (

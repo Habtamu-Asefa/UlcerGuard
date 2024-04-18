@@ -27,11 +27,7 @@ export default function PublicScreens() {
         component={OnBoarding}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name={CONST.SCREEN.BLOG}
-        component={Blog}
-        options={{headerShown: false}}
-      />
+      
     </Stack.Navigator>
   );
 }

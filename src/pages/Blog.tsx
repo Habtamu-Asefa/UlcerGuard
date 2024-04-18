@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export default function Blog({ navigation}) {
+export default function Blog({navigation, route}) {
   const { blog } = route.params;
 
   return (
-    <View style={styles.container}>   
+    <View style={styles.container}> 
       <Image
         source={blog.imageUrl}
         style={styles.blogImage}
