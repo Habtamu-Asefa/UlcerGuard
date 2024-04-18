@@ -76,7 +76,7 @@ export default function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name={CONST.SCREEN.NATIFICATION}
+        name={CONST.SCREEN.NOTIFICATION}
         component={Notification}
         options={{
           headerShown: false,
