@@ -4,17 +4,18 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  
 } from 'react-native';
 import React from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import {CONST} from '../CONST';
-import Header from '../components/header/Header';
+// import Header from '../components/header/Header';
 // import {useState} from 'react';
 
 export default function Profile({navigation}) {
   return (
     <View style={styles.container}>
-      <Header/>
+    
       <ScrollView>
         <Text style={styles.title}>Edit your profile</Text>
         <TextInput
@@ -92,7 +93,7 @@ export default function Profile({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:25,
+    paddingTop:60,
     paddingHorizontal: 25,
     rowGap: 20,
     backgroundColor: 'white',

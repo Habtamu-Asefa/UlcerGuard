@@ -21,7 +21,7 @@ export default function ReferenceFooter() {
         {Boxes.map(item => (
           <View style={{flex: 1, flexDirection: 'row', gap: 5}}>
             <Box color={item.color} key={item.color} />
-            <Text>{item.note}</Text>
+            <Text style={{color:'black'}}>{item.note}</Text>
           </View>
         ))}
       </View>

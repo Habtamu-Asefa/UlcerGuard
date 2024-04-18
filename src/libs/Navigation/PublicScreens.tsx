@@ -4,6 +4,7 @@ import SignIn from '../../pages/SignIn';
 import SignUp from '../../pages/SignUp';
 import {CONST} from '../../CONST';
 import OnBoarding from '../../pages/OnBoarding';
+import Blog from '../../pages/Blog';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function PublicScreens() {
         component={OnBoarding}
         options={{headerShown: false}}
       />
+      
     </Stack.Navigator>
   );
 }
