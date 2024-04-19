@@ -16,12 +16,12 @@ const Box = ({color}: {color: string}) => (
 export default function ReferenceFooter() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Level of Exposure</Text>
+      {/* <Text style={styles.title}>Level of Exposure</Text> */}
       <View style={{flex: 1, flexDirection: 'row', paddingTop: 10}}>
         {Boxes.map(item => (
           <View style={{flex: 1, flexDirection: 'row', gap: 5}}>
             <Box color={item.color} key={item.color} />
-            <Text style={{color:'black'}}>{item.note}</Text>
+            <Text style={{color: 'black'}}>{item.note}</Text>
           </View>
         ))}
       </View>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1 / 4,
     backgroundColor: 'white',
-    elevation: 5,
+    // elevation: 5,
     borderRadius: 5,
     padding: 10,
   },

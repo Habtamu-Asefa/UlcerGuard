@@ -6,9 +6,9 @@ export default function Header({name = 'Miedan', navigation}) {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.openDrawer()}>
-        <Avatar.Image   
-        size={40}
-        source={require('../../../assets/image/patient.png')} 
+        <Avatar.Image
+          size={40}
+          source={require('../../../assets/image/patient.png')}
         />
       </Pressable>
 
@@ -20,16 +20,17 @@ export default function Header({name = 'Miedan', navigation}) {
 const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 20,
     color: 'black',
   },
   container: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'white',
+    // backgroundColor: '#00B140',
     padding: 10,
-    elevation: 5,
+    // elevation: 5,
     borderRadius: 10,
   },
 });

@@ -1,24 +1,54 @@
-import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated';
-
+/* eslint-disable react-native/no-inline-styles */
+import React from 'react';
+import {MotiView} from 'moti';
+import {StyleSheet, View} from 'react-native';
+import {Easing} from 'react-native-reanimated';
+const _color = {red: 'red', yellow: 'yellow', green: 'green'};
+const _size = 20;
 export default function ExpandingCircle({color}) {
-  const width = useSharedValue(0);
-  const style = useAnimatedStyle(() => {
-    return {
-      width: width.value,
-      height: width.value,
-      borderRadius: width.value / 2,
-    };
-  });
-  const OFFSET = 30;
-  useEffect(() => {
-    width.value = withRepeat(withTiming(OFFSET), 0, true);
-  }, []);
-  return <Animated.View style={[{backgroundColor: color}, style]} />;
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <View style={[styles.center, styles.cirlce]}>
+        {[...Array(3).keys()].map(index => {
+          return (
+            <MotiView
+              from={{opacity: 0.9, scale: 1}}
+              animate={{opacity: 0, scale: 3}}
+              transition={{
+                type: 'timing',
+                duration: 2000,
+                easing: Easing.out(Easing.ease),
+                loop: true,
+                repeatReverse: false,
+              }}
+              delay={index * 400}
+              key={index}
+              style={[
+                StyleSheet.absoluteFillObject,
+                styles.cirlce,
+                {backgroundColor: _color[color]},
+              ]}
+            />
+          );
+        })}
+      </View>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  cirlce: {
+    width: _size,
+    height: _size,
+    borderRadius: _size,
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

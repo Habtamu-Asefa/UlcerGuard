@@ -6,6 +6,8 @@ import {Circle, useFont} from '@shopify/react-native-skia';
 import type {SharedValue} from 'react-native-reanimated';
 import inter from '../../assets/inter-medium.ttf';
 import {Button} from 'react-native-paper';
+import simuData from '../simuData.js';
+import csvToArray from '../utils/csvToArray.js';
 
 const INIT_STATE = {x: 0, y: {highTmp: 0}} as const;
 
@@ -15,6 +17,8 @@ function MyChart() {
     useChartPressState(INIT_STATE);
   const {state: secondPress, isActive: isSecondPressActive} =
     useChartPressState(INIT_STATE);
+
+  const formattedDAta = csvToArray(simuData);
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -32,7 +36,7 @@ function MyChart() {
 
       <View style={{height: 300, backgroundColor: 'white', margin: 5}}>
         <CartesianChart
-          data={DATA}
+          data={formattedDAta}
           xKey="day"
           yKeys={['highTmp']}
           axisOptions={{font}}
@@ -147,7 +151,7 @@ function MyChart() {
             mode="contained"
             style={{
               backgroundColor: '#00B140',
-              paddingVertical: 3,
+              paddingVertical: 7,
               marginTop: 7,
               width: Dimensions.get('screen').width * 0.45,
             }}>

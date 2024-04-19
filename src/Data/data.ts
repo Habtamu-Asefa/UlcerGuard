@@ -1,22 +1,28 @@
- const blogsData = [
-    {
-      id: 1,
-      title: 'Blog 1',
-      imageUrl: require('../../assets/image/background.jpg'),
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      id: 2,
-      title: 'Blog 2',
-      imageUrl: require('../../assets/image/background.jpg'), 
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.2',
-    },
-    {
-      id: 3,
-      title: 'Blog 3',
-      imageUrl: require('../../assets/image/background.jpg'), 
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.3',
-    },
-  ];
+const blogsData = [
+  {
+    id: 1,
+    title: 'Protecting your feet',
+    imageUrl: require('../../assets/image/background.jpg'),
+    content: 'How to protect your feet from ulcer?',
+  },
+  {
+    id: 2,
+    title: 'Early Ulcer Detection',
+    imageUrl: require('../../assets/image/redfeet.webp'),
+    content: 'How to protect your feet from ulcer?',
+  },
+  {
+    id: 3,
+    title: 'Feet Health Tips',
+    imageUrl: require('../../assets/image/healthyFeet.jpg'),
+    content: 'How to protect your feet from ulcer?',
+  },
+  {
+    id: 4,
+    title: 'Word of Caution',
+    imageUrl: require('../../assets/image/background.jpg'),
+    content: 'How to protect your feet from ulcer?',
+  },
+];
 
-  export default blogsData
+export default blogsData;

@@ -13,8 +13,8 @@ export default function Home({navigation}) {
   return (
     <View
       style={{
-        backgroundColor: '#E7ECEF',
         flex: 1,
+        backgroundColor: 'white',
         padding: 10,
         justifyContent: 'space-between',
       }}>
