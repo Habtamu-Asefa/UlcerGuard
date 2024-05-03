@@ -9,7 +9,6 @@ import {useDrawerStatus} from '@react-navigation/drawer';
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
   const isDrawerOpen = useDrawerStatus();
-
   return (
     <View
       style={{

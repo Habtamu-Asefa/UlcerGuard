@@ -13,8 +13,14 @@ import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import HowTo from '../../pages/HowTo';
-import {TouchableOpacity, View} from 'react-native';
-import {Avatar, Text} from 'react-native-paper';
+import {
+  TouchableOpacity,
+  View,
+  Alert,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
+import {Avatar, Text, Button} from 'react-native-paper';
 import {CONST} from '../../CONST';
 import Notification from '../../pages/Notification';
 import Password from '../../pages/Password';
@@ -22,6 +28,15 @@ import Data from '../../pages/Data';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
+  const signoutAlert = () =>
+    Alert.alert('sign out?', 'Do you really want to sign out?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+  },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+]);
   return (
     <Drawer.Navigator
       drawerContent={props => (
@@ -57,6 +72,18 @@ export default function DrawerNavigator() {
             </View>
           </TouchableOpacity>
           <DrawerItemList {...props} />
+          <TouchableOpacity  onPress={signoutAlert}>
+            <Text
+              style={{
+                color: 'red',
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginTop: 30,
+                alignSelf: 'center',
+              }}>
+              Sign out
+            </Text>
+          </TouchableOpacity>
         </>
       )}
       screenOptions={{
@@ -138,3 +165,13 @@ export default function DrawerNavigator() {
     </Drawer.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#00B140',
+    paddingVertical: 3,
+    marginTop: 30,
+    width: Dimensions.get('screen').width * 0.75,
+    alignSelf: 'center',
+  },
+})
