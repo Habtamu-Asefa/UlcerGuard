@@ -11,11 +11,6 @@ import {CONST} from '../CONST';
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
   const isDrawerOpen = useDrawerStatus();
-
-  useEffect(() => {
-    signup();
-  }, []);
-
   return (
     <View
       style={{
