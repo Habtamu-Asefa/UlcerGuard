@@ -4,18 +4,22 @@ import type {PayloadAction} from '@reduxjs/toolkit';
 export interface ProfileState {
   name: string;
   phoneNumber: string;
-  age: number;
-  weight: number;
-  gender: 'male' | 'female';
+  email: string;
+  dob: string;
+  weight: string;
+  height: string;
+  gender: string;
   password: string;
 }
 
 const initialState: ProfileState = {
-  name: 'testing name',
+  name: '',
+  email: '',
   phoneNumber: '',
-  age: 0,
-  weight: 0,
-  gender: 'male',
+  dob: '',
+  weight: '',
+  height: '',
+  gender: '',
   password: '',
 };
 
@@ -23,17 +27,25 @@ export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    update: (state, action: PayloadAction<object>) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.name = 'update profile';
+    updateProfile: (state, action: PayloadAction<object>) => {
+      state = {...action.payload};
+    },
+    clearProfile: state => {
+      state = {
+        name: '',
+        email: '',
+        phoneNumber: '',
+        dob: '',
+        weight: '',
+        height: '',
+        gender: '',
+        password: '',
+      };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {update} = profileSlice.actions;
+export const {updateProfile, clearProfile} = profileSlice.actions;
 
 export default profileSlice.reducer;

@@ -6,12 +6,27 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import {CONST} from '../CONST';
 import {TouchableOpacity} from 'react-native';
+import signin from '../api/signin';
+import {useDispatch} from 'react-redux';
+import {storeToken} from '../libs/Redux/features/auth/authSlice';
 
 export default function SignIn({navigation}) {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const handleSignIn = async () => {
+    await signin(user);
+    console.log('Sign in looks like this: ');
+    dispatch(storeToken());
+  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
@@ -24,6 +39,7 @@ export default function SignIn({navigation}) {
         outlineColor="#000"
         activeOutlineColor="#00B140"
         style={styles.input}
+        onChangeText={e => setUser(prev => ({...prev, email: e}))}
       />
       <TextInput
         mode="outlined"
@@ -32,13 +48,11 @@ export default function SignIn({navigation}) {
         outlineColor="#000"
         activeOutlineColor="#00B140"
         style={styles.input}
+        onChangeText={e => setUser(prev => ({...prev, password: e}))}
       />
 
       <View>
-        <Button
-          mode="contained"
-          onPress={() => navigation.navigate(CONST.SCREEN.HOME)}
-          style={styles.button}>
+        <Button mode="contained" onPress={handleSignIn} style={styles.button}>
           Sign In
         </Button>
         <Pressable>
@@ -54,7 +68,7 @@ export default function SignIn({navigation}) {
             justifyContent: 'center',
             paddingTop: 8,
           }}>
-          <Text style={{color:'#00B140'}}>Don't have an account?</Text>
+          <Text style={{color: '#00B140'}}>Don't have an account?</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}>
             <Text

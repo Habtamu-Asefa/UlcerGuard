@@ -1,8 +1,10 @@
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {Avatar} from 'react-native-paper';
+import {useSelector} from 'react-redux';
 
 export default function Header({name = 'Miedan', navigation}) {
+  const user = useSelector(state => state.profile);
   return (
     <View style={styles.container}>
       <Pressable onPress={() => navigation.openDrawer()}>
@@ -12,7 +14,7 @@ export default function Header({name = 'Miedan', navigation}) {
         />
       </Pressable>
 
-      <Text style={styles.name}>Afternoon, {name}</Text>
+      <Text style={styles.name}>Afternoon, {user.name}</Text>
     </View>
   );
 }

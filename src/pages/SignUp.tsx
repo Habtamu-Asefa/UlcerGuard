@@ -8,11 +8,36 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import {CONST} from '../CONST';
+import signup from '../api/signup';
+import {useDispatch} from 'react-redux';
+import {storeToken} from '../libs/Redux/features/auth/authSlice';
+import {updateProfile} from '../libs/Redux/features/profile/profileSlice';
 
-export default function SignUp({navigation}) {
+export default function SignUp({navigation}: any) {
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    gender: '',
+    dob: '',
+    height: '',
+    weight: '',
+    password: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const handleSignUp = async () => {
+    await signup(user);
+    console.log('User registered!');
+    dispatch(updateProfile(user));
+    dispatch(storeToken());
+  };
+
+  console.log('User: ', user);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
@@ -26,6 +51,7 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, firstName: e}))}
         />
         <TextInput
           mode="outlined"
@@ -34,6 +60,16 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, lastName: e}))}
+        />
+        <TextInput
+          mode="outlined"
+          label="Email"
+          placeholder="Email"
+          outlineColor="#999"
+          activeOutlineColor="#00B140"
+          style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, email: e}))}
         />
         <TextInput
           mode="outlined"
@@ -43,15 +79,17 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, gender: e}))}
         />
         <TextInput
           mode="outlined"
-          label="Age"
+          label="Date of Birth"
           inputMode="numeric"
-          placeholder="Age"
+          placeholder="Date of Birth"
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, dob: e}))}
         />
         <TextInput
           mode="outlined"
@@ -61,6 +99,7 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, height: e}))}
         />
         <TextInput
           mode="outlined"
@@ -70,6 +109,7 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, weight: e}))}
         />
         <TextInput
           mode="outlined"
@@ -78,6 +118,7 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, password: e}))}
         />
         <TextInput
           mode="outlined"
@@ -86,12 +127,10 @@ export default function SignUp({navigation}) {
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
+          onChangeText={e => setUser(prev => ({...prev, password: e}))}
         />
         <View>
-          <Button
-            mode="contained"
-            onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}
-            style={styles.button}>
+          <Button mode="contained" onPress={handleSignUp} style={styles.button}>
             Sign Up
           </Button>
           <Pressable>

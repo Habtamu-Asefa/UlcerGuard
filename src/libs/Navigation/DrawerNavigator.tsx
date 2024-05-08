@@ -25,18 +25,31 @@ import {CONST} from '../../CONST';
 import Notification from '../../pages/Notification';
 import Password from '../../pages/Password';
 import Data from '../../pages/Data';
+import {useDispatch, useSelector} from 'react-redux';
+import {clearProfile} from '../Redux/features/profile/profileSlice';
+import {clearToken} from '../Redux/features/auth/authSlice';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
+  const user = useSelector(state => state.profile);
+  const dispatch = useDispatch();
+
   const signoutAlert = () =>
     Alert.alert('sign out?', 'Do you really want to sign out?', [
       {
         text: 'Cancel',
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
-  },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-]);
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          dispatch(clearProfile());
+          dispatch(clearToken());
+          return;
+        },
+      },
+    ]);
   return (
     <Drawer.Navigator
       drawerContent={props => (
@@ -64,15 +77,15 @@ export default function DrawerNavigator() {
                   fontWeight: 'bold',
                   marginTop: 10,
                 }}>
-                Miedan B.
+                {user.name}
               </Text>
               <Text style={{color: 'white', fontSize: 16}}>
-                +251 9123456789
+                {user.phoneNumber}
               </Text>
             </View>
           </TouchableOpacity>
           <DrawerItemList {...props} />
-          <TouchableOpacity  onPress={signoutAlert}>
+          <TouchableOpacity onPress={signoutAlert}>
             <Text
               style={{
                 color: 'red',
@@ -174,4 +187,4 @@ const styles = StyleSheet.create({
     width: Dimensions.get('screen').width * 0.75,
     alignSelf: 'center',
   },
-})
+});

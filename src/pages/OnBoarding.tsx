@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import React from 'react';
@@ -12,6 +13,7 @@ import {CONST} from '../CONST';
 const OnBoarding = ({navigation}) => {
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" />
       <ImageBackground
         source={require('../../assets/image/background.jpg')}
         style={styles.image}>
@@ -26,7 +28,6 @@ const OnBoarding = ({navigation}) => {
             onPress={() => navigation.navigate(CONST.SCREEN.SIGNIN)}
             style={[styles.button, {backgroundColor: 'white'}]}>
             <Text style={{color: 'green', fontSize: 20, fontWeight: 'bold'}}>
-              {' '}
               Sign In
             </Text>
           </Button>
@@ -35,7 +36,6 @@ const OnBoarding = ({navigation}) => {
             onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}
             style={[styles.button, {borderColor: 'white'}]}>
             <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-              {' '}
               Sign Up
             </Text>
           </Button>
@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 12,
     marginBottom: 6,
-    width: Dimensions.get('screen').width * 0.75,
+    width: Dimensions.get('screen').width * 0.85,
   },
   contain: {
     paddingTop: 120,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   subtitle: {
-    width: 260,
+    width: 270,
     fontSize: 25,
     textAlign: 'center',
     color: 'white',
