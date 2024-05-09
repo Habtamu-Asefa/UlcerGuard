@@ -28,12 +28,16 @@ export default function SignUp({navigation}: any) {
     password: '123456',
   });
   const [showError, setShowError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleSignUp = async () => {
+    setLoading(true);
     setShowError('');
     const res = await signup(user);
+    setLoading(false);
+
     if (res.ok) {
       dispatch(updateProfile(user));
       dispatch(storeToken());
@@ -141,7 +145,11 @@ export default function SignUp({navigation}: any) {
           </Text>
         )}
         <View style={{marginBottom: 20}}>
-          <Button mode="contained" onPress={handleSignUp} style={styles.button}>
+          <Button
+            mode="contained"
+            loading={loading}
+            onPress={handleSignUp}
+            style={styles.button}>
             Sign Up
           </Button>
           <Pressable>

@@ -20,12 +20,15 @@ export default function SignIn({navigation}) {
     password: '123456',
   });
   const [showError, setShowError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
+    setLoading(true);
     setShowError('');
     const res = await signin(user);
+    setLoading(false);
     setShowError(res.error);
     console.log('res: ', res);
     if (res.ok) {
@@ -62,7 +65,11 @@ export default function SignIn({navigation}) {
       )}
 
       <View>
-        <Button mode="contained" onPress={handleSignIn} style={styles.button}>
+        <Button
+          mode="contained"
+          onPress={handleSignIn}
+          loading={loading}
+          style={styles.button}>
           Sign In
         </Button>
         <Pressable>
