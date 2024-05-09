@@ -9,8 +9,11 @@ import {
 import {Button} from 'react-native-paper';
 import React from 'react';
 import {CONST} from '../CONST';
+import {useDispatch} from 'react-redux';
+import {updateFirstTime} from '../libs/Redux/features/auth/authSlice';
 
 const OnBoarding = ({navigation}) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
@@ -25,7 +28,10 @@ const OnBoarding = ({navigation}) => {
         <View style={styles.contain}>
           <Button
             mode="contained"
-            onPress={() => navigation.navigate(CONST.SCREEN.SIGNIN)}
+            onPress={() => {
+              navigation.navigate(CONST.SCREEN.SIGNIN);
+              dispatch(updateFirstTime());
+            }}
             style={[styles.button, {backgroundColor: 'white'}]}>
             <Text style={{color: 'green', fontSize: 20, fontWeight: 'bold'}}>
               Sign In
@@ -33,7 +39,10 @@ const OnBoarding = ({navigation}) => {
           </Button>
           <Button
             mode="outlined"
-            onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}
+            onPress={() => {
+              navigation.navigate(CONST.SCREEN.SIGNUP);
+              dispatch(updateFirstTime());
+            }}
             style={[styles.button, {borderColor: 'white'}]}>
             <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
               Sign Up

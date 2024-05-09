@@ -9,13 +9,14 @@ const signup = async data => {
     },
     body: JSON.stringify({...data, name: data.firstName + '' + data.lastName}),
   });
+  const error = await response.text();
 
   if (response.ok) {
     const token = response.headers.get('Authorization')?.split(' ')[1]; // Extract from header
     await storeToken(token);
   }
 
-  return;
+  return {ok: response.ok, error: error};
 };
 
 export default signup;

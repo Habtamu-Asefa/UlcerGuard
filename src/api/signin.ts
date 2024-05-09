@@ -2,7 +2,6 @@ import {CONST} from '../CONST';
 import storeToken from '../utils/TokenUtils/storeToken';
 
 const signin = async user => {
-  console.log('Data receieved in signin: ', user);
   const response = await fetch(`${CONST.BASE_URL}/user/signin`, {
     method: 'POST',
     headers: {
@@ -11,12 +10,14 @@ const signin = async user => {
     body: JSON.stringify(user),
   });
 
+  const error = await response.text();
+
   if (response.ok) {
     const token = response.headers.get('Authorization')?.split(' ')[1]; // Extract from header
     await storeToken(token);
   }
 
-  return;
+  return {ok: response.ok, error: error};
 };
 
 export default signin;

@@ -16,16 +16,21 @@ import {storeToken} from '../libs/Redux/features/auth/authSlice';
 
 export default function SignIn({navigation}) {
   const [user, setUser] = useState({
-    email: '',
-    password: '',
+    email: 'nazrihabtish@gmail.com',
+    password: '123456',
   });
+  const [showError, setShowError] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSignIn = async () => {
-    await signin(user);
-    console.log('Sign in looks like this: ');
-    dispatch(storeToken());
+    setShowError('');
+    const res = await signin(user);
+    setShowError(res.error);
+    console.log('res: ', res);
+    if (res.ok) {
+      dispatch(storeToken());
+    }
   };
   return (
     <View style={styles.container}>
@@ -50,13 +55,18 @@ export default function SignIn({navigation}) {
         style={styles.input}
         onChangeText={e => setUser(prev => ({...prev, password: e}))}
       />
+      {showError && (
+        <Text style={{color: 'red', alignSelf: 'flex-start', paddingLeft: 50}}>
+          {showError}
+        </Text>
+      )}
 
       <View>
         <Button mode="contained" onPress={handleSignIn} style={styles.button}>
           Sign In
         </Button>
         <Pressable>
-          <Text style={{color: 'blue', paddingTop: 8, alignSelf: 'center'}}>
+          <Text style={{color: 'blue', paddingTop: 30, alignSelf: 'center'}}>
             Forgot Password?
           </Text>
         </Pressable>
@@ -66,15 +76,15 @@ export default function SignIn({navigation}) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            paddingTop: 8,
+            paddingTop: 12,
           }}>
-          <Text style={{color: '#00B140'}}>Don't have an account?</Text>
+          <Text style={{color: 'black'}}>Don't have an account?</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate(CONST.SCREEN.SIGNUP)}>
             <Text
               // eslint-disable-next-line react-native/no-inline-styles
               style={{
-                color: '#00B140',
+                color: 'blue',
                 fontWeight: 'bold',
                 marginLeft: 10,
               }}>

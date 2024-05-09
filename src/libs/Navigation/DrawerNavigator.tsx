@@ -35,7 +35,7 @@ export default function DrawerNavigator() {
   const dispatch = useDispatch();
 
   const signoutAlert = () =>
-    Alert.alert('sign out?', 'Do you really want to sign out?', [
+    Alert.alert('Sign out?', 'Do you really want to sign out?', [
       {
         text: 'Cancel',
         onPress: () => console.log('Cancel Pressed'),

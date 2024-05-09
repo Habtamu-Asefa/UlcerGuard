@@ -18,30 +18,35 @@ import {updateProfile} from '../libs/Redux/features/profile/profileSlice';
 
 export default function SignUp({navigation}: any) {
   const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    gender: '',
-    dob: '',
-    height: '',
-    weight: '',
-    password: '',
+    firstName: 'Habtamu',
+    lastName: 'Asefa',
+    email: 'nazrihabtish@gmail.com',
+    gender: 'Male',
+    dob: '1999',
+    height: '1.8',
+    weight: '70',
+    password: '123456',
   });
+  const [showError, setShowError] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSignUp = async () => {
-    await signup(user);
-    console.log('User registered!');
-    dispatch(updateProfile(user));
-    dispatch(storeToken());
+    setShowError('');
+    const res = await signup(user);
+    if (res.ok) {
+      dispatch(updateProfile(user));
+      dispatch(storeToken());
+    } else {
+      setShowError(res.error);
+    }
   };
 
   console.log('User: ', user);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Create Account</Text>
         <TextInput
           mode="outlined"
@@ -129,7 +134,13 @@ export default function SignUp({navigation}: any) {
           style={styles.input}
           onChangeText={e => setUser(prev => ({...prev, password: e}))}
         />
-        <View>
+        {showError && (
+          <Text
+            style={{color: 'red', alignSelf: 'flex-start', paddingLeft: 10}}>
+            {showError}
+          </Text>
+        )}
+        <View style={{marginBottom: 20}}>
           <Button mode="contained" onPress={handleSignUp} style={styles.button}>
             Sign Up
           </Button>
@@ -152,7 +163,7 @@ export default function SignUp({navigation}: any) {
               <Text
                 // eslint-disable-next-line react-native/no-inline-styles
                 style={{
-                  color: '#00B140',
+                  color: 'blue',
                   fontWeight: 'bold',
                   marginLeft: 10,
                 }}>
@@ -173,7 +184,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     rowGap: 20,
-    paddingTop: Dimensions.get('screen').height * 0.1,
+    paddingTop: Dimensions.get('screen').height * 0.04,
     backgroundColor: 'white',
   },
   title: {

@@ -4,13 +4,21 @@ import SignIn from '../../pages/SignIn';
 import SignUp from '../../pages/SignUp';
 import {CONST} from '../../CONST';
 import OnBoarding from '../../pages/OnBoarding';
-import Blog from '../../pages/Blog';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 export default function PublicScreens() {
+  const firstTime = useSelector(state => state.auth.firstTime);
   return (
     <Stack.Navigator initialRouteName={CONST.SCREEN.ONBOARDING}>
+      {firstTime && (
+        <Stack.Screen
+          name={CONST.SCREEN.ONBOARDING}
+          component={OnBoarding}
+          options={{headerShown: false}}
+        />
+      )}
       <Stack.Screen
         name={CONST.SCREEN.SIGNIN}
         component={SignIn}
@@ -21,13 +29,6 @@ export default function PublicScreens() {
         component={SignUp}
         options={{headerShown: false}}
       />
-
-      <Stack.Screen
-        name={CONST.SCREEN.ONBOARDING}
-        component={OnBoarding}
-        options={{headerShown: false}}
-      />
-      
     </Stack.Navigator>
   );
 }
