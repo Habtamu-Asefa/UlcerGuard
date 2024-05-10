@@ -21,7 +21,7 @@ export default function AuthScreens() {
         options={{headerShown: false}}
       />
       <RootStack.Screen
-        name={CONST.SCREEN.HISTORY}
+        name={CONST.SCREEN.DATA}
         component={Data}
         options={{headerShown: false}}
       />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,37 +8,69 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-import blogsData from '../Data/data';
 import {CONST} from '../CONST';
+import blogs from '../api/blogs';
+import {ActivityIndicator, MD2Colors} from 'react-native-paper';
 
 export default function Blogs({navigation}) {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleBlogItemClick = blog => {
     navigation.navigate(CONST.SCREEN.BLOG, {blog});
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      console.log('Trying to fetch blogs.');
+      const res = await blogs();
+      setIsLoading(false);
+
+      if (res.ok) {
+        setData(res.data);
+      }
+    };
+    fetch();
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
       <Text style={styles.header}>Blogs</Text>
-      <ScrollView>
-        {blogsData.map(blog => (
-          <TouchableOpacity
-            key={blog.id}
-            style={styles.blogItem}
-            onPress={() => handleBlogItemClick(blog)}>
-            <Image source={blog.imageUrl} style={styles.blogImage} />
-            <View style={styles.blogTextContainer}>
-              <Text style={styles.blogTitle}>{blog.title}</Text>
-              <Text
-                numberOfLines={3}
-                ellipsizeMode="tail"
-                style={styles.blogDetail}>
-                {blog.content}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      {isLoading ? (
+        <ActivityIndicator
+          animating={true}
+          color={MD2Colors.redA200}
+          size={50}
+          style={{flex: 1}}
+        />
+      ) : (
+        <ScrollView>
+          {data.map(blog => (
+            <TouchableOpacity
+              key={blog.id}
+              style={styles.blogItem}
+              onPress={() => handleBlogItemClick(blog)}>
+              <Image
+                source={{
+                  uri: blog.imageURL,
+                }}
+                style={styles.blogImage}
+              />
+
+              <View style={styles.blogTextContainer}>
+                <Text style={styles.blogTitle}>{blog.title}</Text>
+                <Text
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={styles.blogDetail}>
+                  {blog.content}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }

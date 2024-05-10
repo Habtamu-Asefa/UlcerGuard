@@ -135,16 +135,7 @@ export default function DrawerNavigator() {
           ),
         }}
       />
-      <Drawer.Screen
-        name={CONST.SCREEN.DATA}
-        component={Data}
-        options={{
-          headerShown: false,
-          drawerIcon: props => (
-            <Feather name="edit" size={24} color={props.color} />
-          ),
-        }}
-      />
+
       <Drawer.Screen
         name="Change Password"
         component={Password}

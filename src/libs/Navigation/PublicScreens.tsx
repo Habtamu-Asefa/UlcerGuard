@@ -5,6 +5,7 @@ import SignUp from '../../pages/SignUp';
 import {CONST} from '../../CONST';
 import OnBoarding from '../../pages/OnBoarding';
 import {useSelector} from 'react-redux';
+import Password from '../../pages/Password';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ export default function PublicScreens() {
       <Stack.Screen
         name={CONST.SCREEN.SIGNUP}
         component={SignUp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name={CONST.SCREEN.PASSWORD}
+        component={Password}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

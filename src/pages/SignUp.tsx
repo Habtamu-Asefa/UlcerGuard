@@ -27,6 +27,7 @@ export default function SignUp({navigation}: any) {
     weight: '70',
     password: '123456',
   });
+
   const [showError, setShowError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -152,7 +153,7 @@ export default function SignUp({navigation}: any) {
             style={styles.button}>
             Sign Up
           </Button>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate(CONST.SCREEN.PASSWORD)}>
             <Text style={{color: 'blue', paddingTop: 8, alignSelf: 'center'}}>
               Forgot Password?
             </Text>
