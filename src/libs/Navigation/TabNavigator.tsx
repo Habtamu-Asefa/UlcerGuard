@@ -7,6 +7,8 @@ import Blogs from '../../pages/Blogs';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import BleScan from '../../pages/BleScan';
+import BleDetail from '../../pages/BleDetail';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,6 +28,24 @@ export default function TabNavigator() {
       <Tab.Screen
         name={CONST.SCREEN.HOME}
         component={Home}
+        options={{
+          tabBarIcon: props => (
+            <Feather name="home" size={24} color={props.color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={'BleScan'}
+        component={BleScan}
+        options={{
+          tabBarIcon: props => (
+            <Feather name="home" size={24} color={props.color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={'BleDetail'}
+        component={BleDetail}
         options={{
           tabBarIcon: props => (
             <Feather name="home" size={24} color={props.color} />

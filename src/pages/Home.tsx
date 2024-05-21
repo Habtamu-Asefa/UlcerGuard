@@ -7,6 +7,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useDrawerStatus} from '@react-navigation/drawer';
 import signup from '../api/signup';
 import {CONST} from '../CONST';
+import ModalTester from '../components/modal/BleModal';
 
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
@@ -19,6 +20,7 @@ export default function Home({navigation}) {
         padding: 10,
         justifyContent: 'space-between',
       }}>
+      <ModalTester />
       {isFocused ? (
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
       ) : null}
