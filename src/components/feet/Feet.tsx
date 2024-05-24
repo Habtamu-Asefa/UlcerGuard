@@ -1,23 +1,56 @@
-import {View, StyleSheet, Dimensions, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  useWindowDimensions,
+} from 'react-native';
 import React from 'react';
 import FeetSVG from '../../../assets/image/feet.svg';
 import ExpandingCircle from '../ExpandingCircle';
 
 export default function Feet() {
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height;
+
   return (
     <View style={styles.container}>
-      <FeetSVG style={styles.svg} width={'100%'} height={'100%'} />
-      <View style={{position: 'absolute', top: 60, left: 115}}>
+      <FeetSVG style={styles.svg} width={'100%'} height={'100%'}></FeetSVG>
+      <View
+        style={{
+          position: 'absolute',
+          top: height * 0.07,
+          left: width * 0.28,
+          zIndex: 1,
+        }}>
         <ExpandingCircle color={'green'} />
       </View>
 
-      <View style={{position: 'absolute', top: 150, left: 50}}>
+      <View
+        style={{
+          position: 'absolute',
+          top: height * 0.19,
+          left: width * 0.15,
+          zIndex: 1,
+        }}>
         <ExpandingCircle color="yellow" />
       </View>
-      <View style={{position: 'absolute', top: 125, left: 100}}>
+      <View
+        style={{
+          position: 'absolute',
+          top: height * 0.15,
+          left: width * 0.25,
+          zIndex: 1,
+        }}>
         <ExpandingCircle color="red" />
       </View>
-      <View style={{position: 'absolute', top: 240, left: 140}}>
+      <View
+        style={{
+          position: 'absolute',
+          top: height * 0.3,
+          left: width * 0.35,
+          zIndex: 1,
+        }}>
         <ExpandingCircle color="green" />
       </View>
     </View>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Pressable, Text, View} from 'react-native';
+import {Pressable, Text, TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
@@ -7,12 +7,13 @@ import RNBluetoothClassic, {
   BluetoothDevice,
   BluetoothEventType,
 } from 'react-native-bluetooth-classic';
+import {Button} from 'react-native-paper';
 
 function ModalTester() {
   const [isModalVisible, setModalVisible] = useState(true);
   const [devices, setDevices] = useState([]);
 
-  console.log('Devices list: ', devices);
+  // console.log('Devices list: ', devices);
 
   useEffect(() => {
     const bluetooth = async () => {
@@ -22,7 +23,7 @@ function ModalTester() {
       const connected = await RNBluetoothClassic.getConnectedDevices();
       let bonded = await RNBluetoothClassic.getBondedDevices();
 
-      setDevices([...bonded]);
+      setDevices([...paired]);
 
       // console.log('Bluetooth state: ', av);
       // console.log('Bluetooth enabled: ', enabled);
@@ -37,27 +38,13 @@ function ModalTester() {
     setModalVisible(!isModalVisible);
   };
   let isConnected;
+  let connectState;
 
   const handleConnectDevice = async deviceID => {
-    console.log('now we are talking', deviceID);
-    const connectState = await RNBluetoothClassic.connectToDevice(deviceID);
-    console.log('Connect state: ', connectState);
-    isConnected = await RNBluetoothClassic.isDeviceConnected(
-      '00:22:06:30:51:7C',
-    );
-    // console.log('Data availiable: ', await connectState.available());
-
+    connectState = await RNBluetoothClassic.connectToDevice(deviceID);
+    isConnected = await RNBluetoothClassic.isDeviceConnected(deviceID);
     console.log('Connected to ', deviceID, ' ', isConnected);
   };
-  useEffect(() => {
-    const dataFromSensor = async () => {
-      await RNBluetoothClassic.onDeviceRead('00:22:06:30:51:7C', data => {
-        return console.log('Data from the sensor: ', data);
-      });
-    };
-
-    dataFromSensor();
-  }, [isConnected]);
 
   return (
     <View>
@@ -69,15 +56,20 @@ function ModalTester() {
             borderRadius: 20,
             padding: 15,
           }}>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <IconF name="bluetooth" size={60} color="green" />
-          </View>
+          {/* <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <IconF name="bluetooth" size={60} color="#0082FC" />
+          </View> */}
 
-          <Pressable
-            style={{position: 'absolute', top: 10, right: 10}}
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              zIndex: 1,
+            }}
             onPress={toggleModal}>
-            <IconM name="cancel" size={30} color="red" />
-          </Pressable>
+            <IconM name="cancel" size={30} color="#999" />
+          </TouchableOpacity>
 
           <Text
             style={{
@@ -85,27 +77,45 @@ function ModalTester() {
               fontWeight: 'bold',
               fontSize: 18,
               paddingTop: 10,
+              paddingBottom: 5,
             }}>
             Availiable Devices
           </Text>
-          {devices.map(device => {
-            return (
-              <Pressable
-                onPress={() => handleConnectDevice(device.id)}
-                style={{
-                  flex: 1 / 4,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: '#999',
-                  marginTop: 5,
-                  borderRadius: 10,
-                }}>
-                <Text style={{color: 'white', fontWeight: 15}}>
-                  {device.name}
-                </Text>
-              </Pressable>
-            );
-          })}
+          {devices.length == 0 ? (
+            <View
+              style={{
+                flex: 1,
+                borderRadius: 20,
+                padding: 20,
+                borderWidth: 1,
+                borderStyle: 'dashed',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{color: '#999'}}>
+                No bluetooth device available to connect.
+              </Text>
+            </View>
+          ) : (
+            devices.map(device => {
+              return (
+                <Pressable
+                  onPress={() => handleConnectDevice(device.id)}
+                  style={{
+                    flex: 1 / 4,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#999',
+                    marginTop: 5,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{color: 'white', fontWeight: 15}}>
+                    {device.name}
+                  </Text>
+                </Pressable>
+              );
+            })
+          )}
         </View>
       </Modal>
     </View>
