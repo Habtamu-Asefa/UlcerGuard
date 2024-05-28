@@ -3,11 +3,11 @@ import React from 'react';
 import ReferenceFooter from './ReferenceFooter';
 import StatFooter from './StatFooter';
 
-export default function Footer() {
+export default function Footer({sensor, handleRealtime}) {
   return (
     <View style={{flex: 1, gap: 10}}>
       <ReferenceFooter />
-      <StatFooter />
+      <StatFooter sensor={sensor} handleRealtime={handleRealtime} />
     </View>
   );
 }

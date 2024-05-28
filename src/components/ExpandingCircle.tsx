@@ -3,9 +3,24 @@ import React from 'react';
 import {MotiView} from 'moti';
 import {StyleSheet, View} from 'react-native';
 import {Easing} from 'react-native-reanimated';
-const _color = {red: 'red', yellow: 'yellow', green: 'green'};
+const _color = {red: 'red', yellow: 'yellow', green: 'green', grey: '#999'};
 const _size = 20;
+
 export default function ExpandingCircle({color}) {
+  // console.log('color kind: ', color);
+  if (true) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: color,
+          width: 20,
+          height: 20,
+          borderRadius: 10,
+        }}
+      />
+    );
+  }
   return (
     <View
       style={{

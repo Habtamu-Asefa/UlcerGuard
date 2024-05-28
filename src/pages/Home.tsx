@@ -1,5 +1,5 @@
 import {View, Text, StatusBar, ScrollView} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/header/Header';
 import Feet from '../components/feet/Feet';
 import Footer from '../components/footer/Footer';
@@ -12,6 +12,17 @@ import BleModal from '../components/modal/BleModal';
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
   const isDrawerOpen = useDrawerStatus();
+  const [sensor, setSensor] = useState({
+    toe: '-',
+    heel: '-',
+    mt_1: '-',
+    mt_2: '-',
+  });
+  const handleRealtime = data => {
+    console.log('handle realtime update: ', data);
+    setSensor(data);
+  };
+
   return (
     <View
       style={{
@@ -29,8 +40,8 @@ export default function Home({navigation}) {
       ) : null}
       <ScrollView>
         <Header navigation={navigation} />
-        <Feet />
-        <Footer />
+        <Feet sensor={sensor} />
+        <Footer sensor={sensor} handleRealtime={handleRealtime} />
       </ScrollView>
     </View>
   );

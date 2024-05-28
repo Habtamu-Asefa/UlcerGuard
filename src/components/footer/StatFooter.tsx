@@ -5,17 +5,8 @@ import RNBluetoothClassic, {
   BluetoothEventType,
 } from 'react-native-bluetooth-classic';
 
-const Data = [
-  {p: 20, site: 'Toe', color: 'green'},
-  {p: 20, site: 'Heel', color: 'green'},
-  {p: 30, site: 'Med Met', color: 'red'},
-  {p: 25, site: 'Lat Met', color: '#F2DC5D'},
-];
-
-export default function Feet() {
+export default function StatFooter({sensor, handleRealtime}) {
   const [connectState, setConnectState] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [sensor, setSensor] = useState({toe: 0, heel: 0, mt_1: 0, mt_2: 0});
 
   useEffect(() => {
     const handleConnectDevice = async deviceID => {
@@ -34,10 +25,12 @@ export default function Feet() {
 
     try {
       const response = await connectState.read();
+
       if (response) {
         const final_response = JSON.parse(response);
-        setSensor(final_response);
-        console.log('Response', final_response);
+        // console.log('Response', final_response);
+
+        handleRealtime(final_response);
       }
     } catch (err) {
       console.error(err);
@@ -45,6 +38,13 @@ export default function Feet() {
   };
 
   setInterval(readData, 1000);
+
+  const checkColor = value => {
+    if (value <= 400) return 'green';
+    if (value < 600) return 'yellow';
+    if (value >= 600) return 'red';
+    return 'grey';
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Health Stats</Text>
@@ -55,15 +55,15 @@ export default function Feet() {
             style={[
               styles.box,
               {
-                backgroundColor:
-                  sensor.toe > 200
-                    ? 'red'
-                    : sensor.toe > 70
-                    ? 'yellow'
-                    : 'green',
+                backgroundColor: checkColor(sensor.toe),
               },
             ]}>
-            <Text style={{fontWeight: 'bold', fontSize: 22, color: 'white'}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.toe) === 'yellow' ? '#999' : 'white',
+              }}>
               {sensor.toe}
             </Text>
             <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
@@ -80,15 +80,15 @@ export default function Feet() {
             style={[
               styles.box,
               {
-                backgroundColor:
-                  sensor.heel > 200
-                    ? 'red'
-                    : sensor.toe > 70
-                    ? 'yellow'
-                    : 'green',
+                backgroundColor: checkColor(sensor.heel),
               },
             ]}>
-            <Text style={{fontWeight: 'bold', fontSize: 22, color: 'white'}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.toe) === 'yellow' ? '#999' : 'white',
+              }}>
               {sensor.heel}
             </Text>
             <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
@@ -104,15 +104,15 @@ export default function Feet() {
             style={[
               styles.box,
               {
-                backgroundColor:
-                  sensor.mt_1 > 200
-                    ? 'red'
-                    : sensor.toe > 70
-                    ? 'yellow'
-                    : 'green',
+                backgroundColor: checkColor(sensor.mt_1),
               },
             ]}>
-            <Text style={{fontWeight: 'bold', fontSize: 22, color: 'white'}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.toe) === 'yellow' ? '#999' : 'white',
+              }}>
               {sensor.mt_1}
             </Text>
             <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
@@ -128,15 +128,15 @@ export default function Feet() {
             style={[
               styles.box,
               {
-                backgroundColor:
-                  sensor.mt_2 > 200
-                    ? 'red'
-                    : sensor.toe > 70
-                    ? 'yellow'
-                    : 'green',
+                backgroundColor: checkColor(sensor.mt_2),
               },
             ]}>
-            <Text style={{fontWeight: 'bold', fontSize: 22, color: 'white'}}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.mt_2) === 'yellow' ? '#999' : 'white',
+              }}>
               {sensor.mt_2}
             </Text>
             <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>

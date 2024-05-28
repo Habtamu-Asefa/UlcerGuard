@@ -1,21 +1,22 @@
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Text,
-  useWindowDimensions,
-} from 'react-native';
+import {View, StyleSheet, Dimensions, useWindowDimensions} from 'react-native';
 import React from 'react';
 import FeetSVG from '../../../assets/image/feet.svg';
 import ExpandingCircle from '../ExpandingCircle';
 
-export default function Feet() {
+export default function Feet({sensor, handleRealtime}) {
   const width = useWindowDimensions().width;
   const height = useWindowDimensions().height;
 
+  const checkColor = value => {
+    if (value <= 400) return 'green';
+    if (value < 600) return 'yellow';
+    if (value >= 600) return 'red';
+    return 'grey';
+  };
+
   return (
     <View style={styles.container}>
-      <FeetSVG style={styles.svg} width={'100%'} height={'100%'}></FeetSVG>
+      <FeetSVG style={styles.svg} width={'100%'} height={'100%'} />
       <View
         style={{
           position: 'absolute',
@@ -23,7 +24,7 @@ export default function Feet() {
           left: width * 0.28,
           zIndex: 1,
         }}>
-        <ExpandingCircle color={'green'} />
+        <ExpandingCircle color={checkColor(sensor.toe)} key={sensor.toe} />
       </View>
 
       <View
@@ -33,8 +34,9 @@ export default function Feet() {
           left: width * 0.15,
           zIndex: 1,
         }}>
-        <ExpandingCircle color="yellow" />
+        <ExpandingCircle color={checkColor(sensor.mt_1)} key={sensor.mt_1} />
       </View>
+
       <View
         style={{
           position: 'absolute',
@@ -42,8 +44,9 @@ export default function Feet() {
           left: width * 0.25,
           zIndex: 1,
         }}>
-        <ExpandingCircle color="red" />
+        <ExpandingCircle color={checkColor(sensor.mt_2)} key={sensor.mt_2} />
       </View>
+
       <View
         style={{
           position: 'absolute',
@@ -51,7 +54,7 @@ export default function Feet() {
           left: width * 0.35,
           zIndex: 1,
         }}>
-        <ExpandingCircle color="green" />
+        <ExpandingCircle color={checkColor(sensor.heel)} key={sensor.heel} />
       </View>
     </View>
   );
@@ -62,9 +65,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.5,
     marginVertical: 8,
     padding: 10,
-    // borderRadius: 8,
-    // backgroundColor: '#D7CEB2',
-    // elevation: 5,
   },
   image: {
     flex: 1,
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   svg: {
-    // backgroundColor: '#999',
     borderRadius: 5,
     resizeMode: 'contain',
     alignSelf: 'center',
