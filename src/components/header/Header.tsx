@@ -10,11 +10,11 @@ export default function Header({name = 'Miedan', navigation}) {
       <Pressable onPress={() => navigation.openDrawer()}>
         <Avatar.Image
           size={40}
-          source={require('../../../assets/image/patient.png')}
+          source={require('../../../assets/image/starynight.webp')}
         />
       </Pressable>
 
-      <Text style={styles.name}>Afternoon, {user.name}</Text>
+      <Text style={styles.name}>Afternoon, Miedan</Text>
     </View>
   );
 }

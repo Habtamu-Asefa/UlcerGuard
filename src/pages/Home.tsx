@@ -8,6 +8,7 @@ import {useDrawerStatus} from '@react-navigation/drawer';
 import signup from '../api/signup';
 import {CONST} from '../CONST';
 import BleModal from '../components/modal/BleModal';
+import Toggle from '../components/Toggle';
 
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
@@ -40,6 +41,17 @@ export default function Home({navigation}) {
       ) : null}
       <ScrollView>
         <Header navigation={navigation} />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: 5,
+          }}>
+          <Text style={{color: 'black', fontWeight: 'bold'}}>Live</Text>
+          <Toggle />
+        </View>
         <Feet sensor={sensor} />
         <Footer sensor={sensor} handleRealtime={handleRealtime} />
       </ScrollView>

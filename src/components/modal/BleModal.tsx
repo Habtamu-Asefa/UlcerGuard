@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
@@ -54,12 +60,10 @@ function ModalTester() {
             flex: 1 / 2,
             backgroundColor: 'white',
             borderRadius: 20,
-            padding: 15,
+            padding: 10,
+            alignContent: 'center',
+            alignItems: 'center',
           }}>
-          {/* <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <IconF name="bluetooth" size={60} color="#0082FC" />
-          </View> */}
-
           <TouchableOpacity
             style={{
               position: 'absolute',
@@ -71,50 +75,62 @@ function ModalTester() {
             <IconM name="cancel" size={30} color="#999" />
           </TouchableOpacity>
 
-          <Text
+          <View
             style={{
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: 18,
+              flexDirection: 'row',
+              alignItems: 'center',
+              alignContent: 'center',
+              gap: 5,
               paddingTop: 10,
               paddingBottom: 5,
             }}>
-            Availiable Devices
-          </Text>
+            <IconF name="bluetooth" size={25} color="#0082FC" />
+            <Text
+              style={{
+                color: 'black',
+                fontWeight: 'bold',
+                fontSize: 20,
+              }}>
+              Availiable Devices
+            </Text>
+          </View>
+
           {devices.length == 0 ? (
             <View
               style={{
-                flex: 1,
+                flex: 1 / 2,
                 borderRadius: 20,
-                padding: 20,
+                padding: 25,
+                margin: 10,
                 borderWidth: 1,
                 borderStyle: 'dashed',
                 justifyContent: 'center',
-                alignItems: 'center',
               }}>
               <Text style={{color: '#999'}}>
                 No bluetooth device available to connect.
               </Text>
             </View>
           ) : (
-            devices.map(device => {
-              return (
-                <Pressable
-                  onPress={() => handleConnectDevice(device.id)}
-                  style={{
-                    flex: 1 / 4,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#999',
-                    marginTop: 5,
-                    borderRadius: 10,
-                  }}>
-                  <Text style={{color: 'white', fontWeight: 15}}>
-                    {device.name}
-                  </Text>
-                </Pressable>
-              );
-            })
+            <ScrollView>
+              {devices.map(device => {
+                return (
+                  <Pressable
+                    onPress={() => handleConnectDevice(device.id)}
+                    style={{
+                      flex: 1 / 4,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: '#999',
+                      marginTop: 5,
+                      borderRadius: 10,
+                    }}>
+                    <Text style={{color: 'white', fontWeight: 15}}>
+                      {device.name}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
           )}
         </View>
       </Modal>

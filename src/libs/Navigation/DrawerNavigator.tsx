@@ -67,7 +67,7 @@ export default function DrawerNavigator() {
             }}>
             <Avatar.Image
               size={60}
-              source={require('../../../assets/image/patient.png')}
+              source={require('../../../assets/image/starynight.webp')}
             />
             <View>
               <Text
@@ -77,11 +77,9 @@ export default function DrawerNavigator() {
                   fontWeight: 'bold',
                   marginTop: 10,
                 }}>
-                {user.name}
+                Miedan B.
               </Text>
-              <Text style={{color: 'white', fontSize: 16}}>
-                {user.phoneNumber}
-              </Text>
+              <Text style={{color: 'white', fontSize: 16}}>+25111525233</Text>
             </View>
           </TouchableOpacity>
           <DrawerItemList {...props} />
