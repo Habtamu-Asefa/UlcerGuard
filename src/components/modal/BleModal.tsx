@@ -13,23 +13,23 @@ import RNBluetoothClassic, {
   BluetoothDevice,
   BluetoothEventType,
 } from 'react-native-bluetooth-classic';
-import {Button} from 'react-native-paper';
 
 function ModalTester() {
-  const [isModalVisible, setModalVisible] = useState(true);
-  const [devices, setDevices] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [devices, setDevices] = useState([{}]);
 
   // console.log('Devices list: ', devices);
 
   useEffect(() => {
     const bluetooth = async () => {
-      const av = await RNBluetoothClassic.isBluetoothAvailable();
+      const available = await RNBluetoothClassic.isBluetoothAvailable();
       const enabled = await RNBluetoothClassic.isBluetoothEnabled();
-      const paired = await RNBluetoothClassic.getBondedDevices();
+
       const connected = await RNBluetoothClassic.getConnectedDevices();
       let bonded = await RNBluetoothClassic.getBondedDevices();
 
-      setDevices([...paired]);
+      setIsModalVisible(connected);
+      setDevices([...bonded]);
 
       // console.log('Bluetooth state: ', av);
       // console.log('Bluetooth enabled: ', enabled);
@@ -41,8 +41,9 @@ function ModalTester() {
   }, []);
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    setIsModalVisible(!isModalVisible);
   };
+
   let isConnected;
   let connectState;
 
@@ -98,7 +99,7 @@ function ModalTester() {
           {devices.length == 0 ? (
             <View
               style={{
-                flex: 1 / 2,
+                flex: 1,
                 borderRadius: 20,
                 padding: 25,
                 margin: 10,
@@ -111,26 +112,27 @@ function ModalTester() {
               </Text>
             </View>
           ) : (
-            <ScrollView>
-              {devices.map(device => {
-                return (
-                  <Pressable
-                    onPress={() => handleConnectDevice(device.id)}
-                    style={{
-                      flex: 1 / 4,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: '#999',
-                      marginTop: 5,
-                      borderRadius: 10,
-                    }}>
-                    <Text style={{color: 'white', fontWeight: 15}}>
-                      {device.name}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </ScrollView>
+            // <ScrollView>
+            // {
+            devices.map(device => (
+              <Pressable
+                onPress={() => handleConnectDevice(device.id)}
+                style={{
+                  width: 300,
+                  height: 50,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: 'grey',
+                  marginTop: 5,
+                  borderRadius: 10,
+                }}>
+                <Text style={{color: 'white', fontWeight: 15}}>
+                  {device.name}
+                </Text>
+              </Pressable>
+            ))
+            // }
+            // {/* </ScrollView> */}
           )}
         </View>
       </Modal>

@@ -9,6 +9,7 @@ import signup from '../api/signup';
 import {CONST} from '../CONST';
 import BleModal from '../components/modal/BleModal';
 import Toggle from '../components/Toggle';
+import { Icon } from 'react-native-paper';
 
 export default function Home({navigation}) {
   const isFocused = useIsFocused();
@@ -18,9 +19,9 @@ export default function Home({navigation}) {
     heel: '-',
     mt_1: '-',
     mt_2: '-',
+    date: new Date(),
   });
   const handleRealtime = data => {
-    console.log('handle realtime update: ', data);
     setSensor(data);
   };
 
@@ -41,7 +42,7 @@ export default function Home({navigation}) {
       ) : null}
       <ScrollView>
         <Header navigation={navigation} />
-        <View
+        {/* <View
           style={{
             flex: 1,
             flexDirection: 'row',
@@ -51,6 +52,14 @@ export default function Home({navigation}) {
           }}>
           <Text style={{color: 'black', fontWeight: 'bold'}}>Live</Text>
           <Toggle />
+        </View> */}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            paddingRight: 10,
+          }}>
+          
         </View>
         <Feet sensor={sensor} />
         <Footer sensor={sensor} handleRealtime={handleRealtime} />

@@ -5,6 +5,7 @@ import RNBluetoothClassic, {
   BluetoothEventType,
 } from 'react-native-bluetooth-classic';
 import {Button} from 'react-native-paper';
+import parseRTCDate from '../../utils/parseRTCDate';
 
 export default function StatFooter({sensor, handleRealtime}) {
   const [connectState, setConnectState] = useState(false);
@@ -29,13 +30,14 @@ export default function StatFooter({sensor, handleRealtime}) {
 
       if (response) {
         const final_response = response.split(',');
-        // console.log('Response', final_response);
+        console.log('Response', final_response);
 
         handleRealtime({
           toe: final_response[0],
           heel: final_response[1],
           mt_1: final_response[2],
           mt_2: final_response[3],
+          date: parseRTCDate(final_response[4]),
         });
       }
     } catch (err) {
@@ -58,7 +60,7 @@ export default function StatFooter({sensor, handleRealtime}) {
         style={{backgroundColor: 'red'}}
         textColor="white"
         onPress={async () => {
-          const res = await connectState.write('1');
+          const res = await connectState.write('Hello from the man');
           console.log('After writing: ', res);
         }}>
         Write

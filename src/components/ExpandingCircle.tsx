@@ -3,10 +3,11 @@ import React from 'react';
 import {MotiView} from 'moti';
 import {StyleSheet, View} from 'react-native';
 import {Easing} from 'react-native-reanimated';
+
 const _color = {red: 'red', yellow: 'yellow', green: 'green', grey: '#999'};
 const _size = 20;
 
-export default function ExpandingCircle({color}) {
+function ExpandingCircle({color}) {
   // console.log('color kind: ', color);
   if (true) {
     return (
@@ -55,6 +56,14 @@ export default function ExpandingCircle({color}) {
     </View>
   );
 }
+
+// Custom comparison function for React.memo
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.color === nextProps.color;
+};
+
+// Export the component wrapped in React.memo with the custom comparison function
+export default React.memo(ExpandingCircle, areEqual);
 
 const styles = StyleSheet.create({
   cirlce: {

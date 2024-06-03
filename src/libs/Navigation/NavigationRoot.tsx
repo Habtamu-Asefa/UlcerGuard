@@ -5,7 +5,7 @@ export default function NavigationRoot({
 }: {
   authenticated: boolean;
 }) {
-  if (authenticated) {
+  if (!authenticated) {
     const AuthScreens = require('./AuthScreens').default;
     return <AuthScreens />;
   }
