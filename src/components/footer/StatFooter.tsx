@@ -1,10 +1,6 @@
-import {View, Text, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import RNBluetoothClassic, {
-  BluetoothDevice,
-  BluetoothEventType,
-} from 'react-native-bluetooth-classic';
-import {Button} from 'react-native-paper';
+import {StyleSheet, Text, View} from 'react-native';
+import RNBluetoothClassic from 'react-native-bluetooth-classic';
 import parseRTCDate from '../../utils/parseRTCDate';
 
 export default function StatFooter({sensor, handleRealtime}) {

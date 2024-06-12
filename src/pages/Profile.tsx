@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  
-} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React from 'react';
 import {Button, TextInput} from 'react-native-paper';
 import {CONST} from '../CONST';
@@ -15,23 +8,20 @@ import {CONST} from '../CONST';
 export default function Profile({navigation}) {
   return (
     <View style={styles.container}>
-    
       <ScrollView>
         <Text style={styles.title}>Edit your profile</Text>
         <TextInput
           mode="outlined"
           label="Name"
           placeholder="Name"
-          inputMode="tel"
           outlineColor="#999"
           activeOutlineColor="#00B140"
           style={styles.input}
         />
-        
+
         <TextInput
           mode="outlined"
           label="Gender"
-          inputMode="numeric"
           placeholder="Gender"
           outlineColor="#999"
           activeOutlineColor="#00B140"
@@ -64,7 +54,7 @@ export default function Profile({navigation}) {
           activeOutlineColor="#00B140"
           style={styles.input}
         />
-      
+
         <View>
           <Button
             mode="contained"
@@ -72,18 +62,14 @@ export default function Profile({navigation}) {
             style={styles.button}>
             Save
           </Button>
-      
-          <View
 
+          <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
               paddingTop: 8,
-            }}>
-            
-            
-          </View>
+            }}></View>
         </View>
       </ScrollView>
     </View>
@@ -93,7 +79,7 @@ export default function Profile({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:60,
+    paddingTop: 60,
     paddingHorizontal: 25,
     rowGap: 20,
     backgroundColor: 'white',
@@ -101,8 +87,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: '100',
-    color: 'black', 
-    paddingBottom:10,
+    color: 'black',
+    paddingBottom: 10,
   },
   input: {
     marginTop: 5,

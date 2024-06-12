@@ -1,17 +1,17 @@
+import React, {useState} from 'react';
 import {
-  View,
-  StatusBar,
-  Text,
-  StyleSheet,
   Dimensions,
   Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
-import {CONST} from '../CONST';
-import {TouchableOpacity} from 'react-native';
-import signin from '../api/signin';
 import {useDispatch} from 'react-redux';
+import {CONST} from '../CONST';
+import signin from '../api/signin';
 import {storeToken} from '../libs/Redux/features/auth/authSlice';
 
 export default function SignIn({navigation}) {
@@ -119,11 +119,12 @@ const styles = StyleSheet.create({
     color: '#00B140',
   },
   input: {
-    width: Dimensions.get('screen').width * 0.75,
+    width: Dimensions.get('screen').width * 0.85,
+    height: 60,
   },
   button: {
     backgroundColor: '#00B140',
-    paddingVertical: 3,
+    paddingVertical: 8,
     marginTop: 7,
     width: Dimensions.get('screen').width * 0.75,
   },
