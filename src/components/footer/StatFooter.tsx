@@ -30,9 +30,9 @@ export default function StatFooter({sensor, handleRealtime}) {
 
         handleRealtime({
           toe: final_response[0],
-          heel: final_response[1],
+          mt_5: final_response[1],
           mt_1: final_response[2],
-          mt_2: final_response[3],
+          heel: final_response[3],
           date: parseRTCDate(final_response[4]),
         });
       }
@@ -86,6 +86,54 @@ export default function StatFooter({sensor, handleRealtime}) {
           </Text>
         </View>
 
+        {/* Met 1 */}
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <View
+            style={[
+              styles.box,
+              {
+                backgroundColor: checkColor(sensor.mt_1),
+              },
+            ]}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.mt_1) === 'yellow' ? '#999' : 'white',
+              }}>
+              {sensor.mt_1}
+            </Text>
+            <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
+          </View>
+          <Text style={{fontWeight: 'bold', color: '#999', fontSize: 15}}>
+            Met 1
+          </Text>
+        </View>
+
+        {/* Met 5 */}
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <View
+            style={[
+              styles.box,
+              {
+                backgroundColor: checkColor(sensor.mt_5),
+              },
+            ]}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 22,
+                color: checkColor(sensor.mt_5) === 'yellow' ? '#999' : 'white',
+              }}>
+              {sensor.mt_5}
+            </Text>
+            <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
+          </View>
+          <Text style={{fontWeight: 'bold', color: '#999', fontSize: 15}}>
+            Met 5
+          </Text>
+        </View>
+
         {/* Heel */}
 
         <View style={{flex: 1, alignItems: 'center'}}>
@@ -100,7 +148,7 @@ export default function StatFooter({sensor, handleRealtime}) {
               style={{
                 fontWeight: 'bold',
                 fontSize: 22,
-                color: checkColor(sensor.toe) === 'yellow' ? '#999' : 'white',
+                color: checkColor(sensor.heel) === 'yellow' ? '#999' : 'white',
               }}>
               {sensor.heel}
             </Text>
@@ -108,54 +156,6 @@ export default function StatFooter({sensor, handleRealtime}) {
           </View>
           <Text style={{fontWeight: 'bold', color: '#999', fontSize: 15}}>
             Heel
-          </Text>
-        </View>
-
-        {/* Met 1 */}
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <View
-            style={[
-              styles.box,
-              {
-                backgroundColor: checkColor(sensor.mt_1),
-              },
-            ]}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 22,
-                color: checkColor(sensor.toe) === 'yellow' ? '#999' : 'white',
-              }}>
-              {sensor.mt_1}
-            </Text>
-            <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
-          </View>
-          <Text style={{fontWeight: 'bold', color: '#999', fontSize: 15}}>
-            Met 1
-          </Text>
-        </View>
-
-        {/* Met 2 */}
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <View
-            style={[
-              styles.box,
-              {
-                backgroundColor: checkColor(sensor.mt_2),
-              },
-            ]}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 22,
-                color: checkColor(sensor.mt_2) === 'yellow' ? '#999' : 'white',
-              }}>
-              {sensor.mt_2}
-            </Text>
-            <Text style={{fontSize: 12, color: 'white'}}>kPa</Text>
-          </View>
-          <Text style={{fontWeight: 'bold', color: '#999', fontSize: 15}}>
-            Met 2
           </Text>
         </View>
       </View>

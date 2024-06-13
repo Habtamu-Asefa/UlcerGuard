@@ -1,5 +1,5 @@
-import {View, StyleSheet, Dimensions, useWindowDimensions} from 'react-native';
 import React from 'react';
+import {Dimensions, StyleSheet, View, useWindowDimensions} from 'react-native';
 import FeetSVG from '../../../assets/image/feet.svg';
 import ExpandingCircle from '../ExpandingCircle';
 
@@ -44,7 +44,7 @@ export default function Feet({sensor, handleRealtime}) {
           left: width * 0.25,
           zIndex: 1,
         }}>
-        <ExpandingCircle color={checkColor(sensor.mt_2)} key={sensor.mt_2} />
+        <ExpandingCircle color={checkColor(sensor.mt_5)} key={sensor.mt_5} />
       </View>
 
       <View

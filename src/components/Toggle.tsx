@@ -1,7 +1,7 @@
-import React, {useState, useRef} from 'react';
-import {Animated, TouchableOpacity, View, StyleSheet} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-const Toggle = () => {
+const Toggle = ({onPress}) => {
   const [isOn, setIsOn] = useState(false);
   const animatedValue = useRef(new Animated.Value(isOn ? 1 : 0)).current;
 
@@ -12,6 +12,7 @@ const Toggle = () => {
       duration: 200,
       useNativeDriver: true,
     }).start();
+    onPress();
   };
 
   const circleStyle = {
