@@ -8,9 +8,9 @@ export default function Feet({sensor, handleRealtime}) {
   const height = useWindowDimensions().height;
 
   const checkColor = value => {
-    if (value <= 400) return 'green';
-    if (value < 600) return 'yellow';
-    if (value >= 600) return 'red';
+    if (value <= 150) return 'green';
+    if (value < 199) return 'yellow';
+    if (value >= 200) return 'red';
     return 'grey';
   };
 

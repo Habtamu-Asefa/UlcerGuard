@@ -1,66 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import RNBluetoothClassic from 'react-native-bluetooth-classic';
-import parseRTCDate from '../../utils/parseRTCDate';
 
-export default function StatFooter({sensor, handleRealtime}) {
-  const [connectState, setConnectState] = useState(false);
-
-  useEffect(() => {
-    const handleConnectDevice = async deviceID => {
-      console.log('Now we are talking to ', deviceID);
-      const sensorConnection = await RNBluetoothClassic.connectToDevice(
-        deviceID,
-      );
-      setConnectState(sensorConnection);
-    };
-    handleConnectDevice('00:22:06:30:51:7C');
-  }, []);
-
-  const readData = async () => {
-    // console.log('connect state: ', connectState);
-    if (!connectState) return;
-
-    try {
-      const response = await connectState.read();
-
-      if (response) {
-        const final_response = response.split(',');
-        console.log('Response', final_response);
-
-        handleRealtime({
-          toe: final_response[0],
-          mt_5: final_response[1],
-          mt_1: final_response[2],
-          heel: final_response[3],
-          date: parseRTCDate(final_response[4]),
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  setInterval(readData, 1000);
-
+export default function StatFooter({sensor}) {
   const checkColor = value => {
-    if (value <= 400) return 'green';
-    if (value < 600) return 'yellow';
-    if (value >= 600) return 'red';
+    if (value <= 150) return 'green';
+    if (value < 199) return 'yellow';
+    if (value >= 200) return 'red';
     return 'grey';
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Health Stats</Text>
-      {/* <Button
-        style={{backgroundColor: 'red'}}
-        textColor="white"
-        onPress={async () => {
-          const res = await connectState.write('Hello from the man');
-          console.log('After writing: ', res);
-        }}>
-        Write
-      </Button> */}
       <View style={{flex: 1, flexDirection: 'row'}}>
         {/* Toe */}
         <View style={{flex: 1, alignItems: 'center'}}>

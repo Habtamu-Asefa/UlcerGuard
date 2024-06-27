@@ -10,14 +10,20 @@ const signin = async user => {
     body: JSON.stringify(user),
   });
 
-  const error = await response.text();
+  let responseData;
+  console.log(response);
 
   if (response.ok) {
-    const token = response.headers.get('Authorization')?.split(' ')[1]; // Extract from header
+    responseData = await response.json();
+    const token = responseData.token;
     await storeToken(token);
   }
 
-  return {ok: response.ok, error: error};
+  return {
+    ok: response.ok,
+    user: responseData?.user,
+    error: !response.ok ? 'Error during signin' : null,
+  };
 };
 
 export default signin;

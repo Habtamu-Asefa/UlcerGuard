@@ -1,30 +1,29 @@
+import React, {useState} from 'react';
 import {
-  View,
-  StatusBar,
-  Text,
-  StyleSheet,
   Dimensions,
   Pressable,
   ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {Button, TextInput} from 'react-native-paper';
+import {useDispatch} from 'react-redux';
 import {CONST} from '../CONST';
 import signup from '../api/signup';
-import {useDispatch} from 'react-redux';
-import {storeToken} from '../libs/Redux/features/auth/authSlice';
-import {updateProfile} from '../libs/Redux/features/profile/profileSlice';
+import {storeToken, updateProfile} from '../libs/Redux/features/auth/authSlice';
 
 export default function SignUp({navigation}: any) {
   const [user, setUser] = useState({
-    firstName: 'Habtamu',
-    lastName: 'Asefa',
-    email: 'nazrihabtish@gmail.com',
-    gender: 'Male',
-    dob: '1999',
-    height: '1.8',
-    weight: '70',
+    firstName: 'Miedan',
+    lastName: 'Bizuayehu',
+    email: 'mb@gmail.com',
+    gender: 'Female',
+    dob: '2001',
+    height: '1.5',
+    weight: '60',
     password: '123456',
   });
 
@@ -36,7 +35,10 @@ export default function SignUp({navigation}: any) {
   const handleSignUp = async () => {
     setLoading(true);
     setShowError('');
-    const res = await signup(user);
+    const res = await signup({
+      ...user,
+      name: user.firstName + ' ' + user.lastName,
+    });
     setLoading(false);
 
     if (res.ok) {
@@ -47,7 +49,6 @@ export default function SignUp({navigation}: any) {
     }
   };
 
-  console.log('User: ', user);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />

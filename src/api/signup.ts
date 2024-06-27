@@ -7,7 +7,7 @@ const signup = async data => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({...data, name: data.firstName + '' + data.lastName}),
+    body: JSON.stringify(data),
   });
   const error = await response.text();
 

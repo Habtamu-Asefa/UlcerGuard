@@ -1,11 +1,15 @@
 import React, {useRef, useState} from 'react';
 import {Animated, StyleSheet, TouchableOpacity, View} from 'react-native';
 
-const Toggle = ({onPress}) => {
+const Toggle = ({onPress, disabled, handleStateMessage}) => {
   const [isOn, setIsOn] = useState(false);
   const animatedValue = useRef(new Animated.Value(isOn ? 1 : 0)).current;
 
   const toggleSwitch = () => {
+    if (disabled) {
+      handleStateMessage('connect');
+      return;
+    }
     setIsOn(!isOn);
     Animated.timing(animatedValue, {
       toValue: !isOn ? 1 : 0,

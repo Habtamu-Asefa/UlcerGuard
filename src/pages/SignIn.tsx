@@ -12,11 +12,11 @@ import {Button, TextInput} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {CONST} from '../CONST';
 import signin from '../api/signin';
-import {storeToken} from '../libs/Redux/features/auth/authSlice';
+import {storeToken, updateProfile} from '../libs/Redux/features/auth/authSlice';
 
 export default function SignIn({navigation}) {
   const [user, setUser] = useState({
-    email: 'nazrihabtish@gmail.com',
+    email: 'mb@gmail.com',
     password: '123456',
   });
   const [showError, setShowError] = useState('');
@@ -28,11 +28,14 @@ export default function SignIn({navigation}) {
     setLoading(true);
     setShowError('');
     const res = await signin(user);
+
     setLoading(false);
     setShowError(res.error);
     console.log('res: ', res);
     if (res.ok) {
       dispatch(storeToken());
+      const [firstName, lastName] = res.user.name.split(' ');
+      dispatch(updateProfile({...res.user, firstName, lastName}));
     }
   };
   return (
@@ -41,9 +44,9 @@ export default function SignIn({navigation}) {
       <Text style={styles.title}>ULCER GUARD</Text>
       <TextInput
         mode="outlined"
-        label="Phone number"
-        placeholder="Phone number"
-        inputMode="tel"
+        label="Email"
+        value={user.email}
+        placeholder="Email"
         outlineColor="#000"
         activeOutlineColor="#00B140"
         style={styles.input}
@@ -53,6 +56,8 @@ export default function SignIn({navigation}) {
         mode="outlined"
         label="Password"
         placeholder="Password"
+        secureTextEntry={true}
+        value={user.password}
         outlineColor="#000"
         activeOutlineColor="#00B140"
         style={styles.input}

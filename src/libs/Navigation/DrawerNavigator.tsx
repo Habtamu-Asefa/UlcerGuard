@@ -1,37 +1,31 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import {
-  DrawerItem,
-  DrawerItemList,
-  createDrawerNavigator,
-} from '@react-navigation/drawer';
+import {DrawerItemList, createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import Tab from './TabNavigator';
-import Profile from '../../pages/Profile';
-import Support from '../../pages/Support';
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import HowTo from '../../pages/HowTo';
 import {
+  Alert,
+  Dimensions,
+  StyleSheet,
   TouchableOpacity,
   View,
-  Alert,
-  StyleSheet,
-  Dimensions,
 } from 'react-native';
-import {Avatar, Text, Button} from 'react-native-paper';
+import {Avatar, Text} from 'react-native-paper';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch, useSelector} from 'react-redux';
 import {CONST} from '../../CONST';
+import HowTo from '../../pages/HowTo';
 import Notification from '../../pages/Notification';
 import Password from '../../pages/Password';
-import Data from '../../pages/Data';
-import {useDispatch, useSelector} from 'react-redux';
-import {clearProfile} from '../Redux/features/profile/profileSlice';
-import {clearToken} from '../Redux/features/auth/authSlice';
+import Profile from '../../pages/Profile';
+import Support from '../../pages/Support';
+import {clearProfile, clearToken} from '../Redux/features/auth/authSlice';
+import Tab from './TabNavigator';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
-  const user = useSelector(state => state.profile);
+  const user = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   const signoutAlert = () =>
@@ -77,9 +71,14 @@ export default function DrawerNavigator() {
                   fontWeight: 'bold',
                   marginTop: 10,
                 }}>
-                Miedan B.
+                {user.profile?.firstName +
+                  ' ' +
+                  user.profile?.lastName?.slice(0, 1)}
+                .
               </Text>
-              <Text style={{color: 'white', fontSize: 16}}>+25111525233</Text>
+              <Text style={{color: 'white', fontSize: 16}}>
+                {user.profile?.email}
+              </Text>
             </View>
           </TouchableOpacity>
           <DrawerItemList {...props} />

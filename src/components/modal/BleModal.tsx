@@ -1,61 +1,85 @@
 import React, {useEffect, useState} from 'react';
 import {
+  PermissionsAndroid,
+  Platform,
   Pressable,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import RNBluetoothClassic from 'react-native-bluetooth-classic';
 import Modal from 'react-native-modal';
+import {PERMISSIONS, request} from 'react-native-permissions';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
-import RNBluetoothClassic, {
-  BluetoothDevice,
-  BluetoothEventType,
-} from 'react-native-bluetooth-classic';
 
-function ModalTester() {
-  const [isModalVisible, setIsModalVisible] = useState(true);
-  const [devices, setDevices] = useState([{}]);
-
-  // console.log('Devices list: ', devices);
+function ModalTester({stateMessage, handleConnection, handleStateMessage}) {
+  const [devices, setDevices] = useState([]);
 
   useEffect(() => {
-    const bluetooth = async () => {
-      const available = await RNBluetoothClassic.isBluetoothAvailable();
-      const enabled = await RNBluetoothClassic.isBluetoothEnabled();
-
-      const connected = await RNBluetoothClassic.getConnectedDevices();
-      let bonded = await RNBluetoothClassic.getBondedDevices();
-
-      setIsModalVisible(connected);
-      setDevices([...bonded]);
-
-      // console.log('Bluetooth state: ', av);
-      // console.log('Bluetooth enabled: ', enabled);
-      // console.log('Bluetooth paired: ', paired);
-      // console.log('Bluetooth connected: ', connected);
-      // console.log('Bluetooth bonded: ', bonded);
+    const requestBluetoothPermission = async () => {
+      if (Platform.OS === 'android') {
+        if (Platform.Version >= 31) {
+          // Android 12+
+          const granted = await request(PERMISSIONS.ANDROID.BLUETOOTH_CONNECT);
+          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('Bluetooth connect permission denied');
+            return;
+          }
+        } else {
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.BLUETOOTH_ADMIN,
+          );
+          if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+            console.log('Bluetooth admin permission denied');
+            return;
+          }
+        }
+      }
+      initializeBluetooth();
     };
-    bluetooth();
+
+    const initializeBluetooth = async () => {
+      try {
+        let isEnabled = await RNBluetoothClassic.isBluetoothEnabled();
+        if (!isEnabled) {
+          await RNBluetoothClassic.requestBluetoothEnabled();
+        }
+        let bonded = await RNBluetoothClassic.getBondedDevices();
+        // console.log('Bonded devices: ', bonded);
+        setDevices(bonded);
+      } catch (error) {
+        console.error('Error initializing Bluetooth: ', error);
+      }
+    };
+
+    requestBluetoothPermission();
+
+    return () => {
+      // Cleanup if necessary
+    };
   }, []);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
-
-  let isConnected;
-  let connectState;
-
   const handleConnectDevice = async deviceID => {
-    connectState = await RNBluetoothClassic.connectToDevice(deviceID);
-    isConnected = await RNBluetoothClassic.isDeviceConnected(deviceID);
-    console.log('Connected to ', deviceID, ' ', isConnected);
+    try {
+      console.log('device id: ', deviceID);
+      const connectState = await RNBluetoothClassic.connectToDevice(deviceID);
+      const isConnected = await RNBluetoothClassic.isDeviceConnected(deviceID);
+      console.log('Connected to ', deviceID, connectState);
+
+      if (isConnected) {
+        handleConnection(connectState);
+        handleStateMessage('realtime');
+      }
+    } catch (error) {
+      console.error('Error connecting to device: ', error);
+    }
   };
 
   return (
     <View>
-      <Modal isVisible={isModalVisible}>
+      <Modal isVisible={false}>
         <View
           style={{
             flex: 1 / 2,
@@ -66,13 +90,13 @@ function ModalTester() {
             alignItems: 'center',
           }}>
           <TouchableOpacity
+            onPress={() => handleStateMessage('break')}
             style={{
               position: 'absolute',
               top: 10,
               right: 10,
               zIndex: 1,
-            }}
-            onPress={toggleModal}>
+            }}>
             <IconM name="cancel" size={30} color="#999" />
           </TouchableOpacity>
 
@@ -92,48 +116,46 @@ function ModalTester() {
                 fontWeight: 'bold',
                 fontSize: 20,
               }}>
-              Availiable Devices
+              Available Devices
             </Text>
           </View>
-
-          {devices.length == 0 ? (
-            <View
-              style={{
-                flex: 1,
-                borderRadius: 20,
-                padding: 25,
-                margin: 10,
-                borderWidth: 1,
-                borderStyle: 'dashed',
-                justifyContent: 'center',
-              }}>
-              <Text style={{color: '#999'}}>
-                No bluetooth device available to connect.
-              </Text>
-            </View>
-          ) : (
-            // <ScrollView>
-            // {
-            devices.map(device => (
-              <Pressable
-                onPress={() => handleConnectDevice(device.id)}
+          <ScrollView>
+            {devices.length === 0 ? (
+              <View
                 style={{
-                  width: 300,
-                  height: 50,
+                  flex: 1,
+                  borderRadius: 20,
+                  padding: 25,
+                  margin: 10,
+                  borderWidth: 1,
+                  borderStyle: 'dashed',
                   justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'grey',
-                  marginTop: 5,
-                  borderRadius: 10,
                 }}>
-                <Text style={{color: 'white', fontWeight: 15}}>
-                  {device.name}
+                <Text style={{color: '#999'}}>
+                  No Bluetooth device available to connect.
                 </Text>
-              </Pressable>
-            ))
-            // }
-            // {/* </ScrollView> */}
-          )}
+              </View>
+            ) : (
+              devices.map(device => (
+                <Pressable
+                  key={device.id}
+                  onPress={() => handleConnectDevice(device.id)}
+                  style={{
+                    width: 300,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'grey',
+                    marginTop: 5,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{color: 'white', fontWeight: 'bold'}}>
+                    {device.name}
+                  </Text>
+                </Pressable>
+              ))
+            )}
+          </ScrollView>
         </View>
       </Modal>
     </View>

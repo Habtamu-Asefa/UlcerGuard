@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   Image,
+  ScrollView,
   StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import {ActivityIndicator, MD2Colors} from 'react-native-paper';
 import {CONST} from '../CONST';
 import blogs from '../api/blogs';
-import {ActivityIndicator, MD2Colors} from 'react-native-paper';
 
 export default function Blogs({navigation}) {
   const [data, setData] = useState([]);
@@ -24,6 +24,7 @@ export default function Blogs({navigation}) {
     const fetch = async () => {
       console.log('Trying to fetch blogs.');
       const res = await blogs();
+      console.log('Blogs in view: ', res);
       setIsLoading(false);
 
       if (res.ok) {

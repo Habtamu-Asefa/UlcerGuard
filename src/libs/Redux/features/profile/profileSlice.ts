@@ -1,7 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 export interface ProfileState {
+  id: string;
   name: string;
   phoneNumber: string;
   email: string;
@@ -13,6 +14,7 @@ export interface ProfileState {
 }
 
 const initialState: ProfileState = {
+  id: '',
   name: '',
   email: '',
   phoneNumber: '',
@@ -28,10 +30,13 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     updateProfile: (state, action: PayloadAction<object>) => {
-      state = {...action.payload};
+      console.log('Updating profile: ', action.payload);
+      //update each key in payload
+      state = {...state, ...action.payload};
     },
     clearProfile: state => {
       state = {
+        id: '',
         name: '',
         email: '',
         phoneNumber: '',
